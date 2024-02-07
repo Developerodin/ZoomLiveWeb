@@ -68,15 +68,15 @@ export const ZoomMeeetingRoom = () => {
        language: 'en-US',
        customize: {
         video: {
-          isResizable: true,
+          isResizable: false,
           viewSizes: {
             default: {
-              width: 1300,
-              height: 600
+              width: 100,
+              height: 300
             },
             ribbon: {
-              width: 700,
-              height: 700,
+              width: 100,
+              height: 300,
             }
           }
         }

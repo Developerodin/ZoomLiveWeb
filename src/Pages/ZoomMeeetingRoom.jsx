@@ -71,11 +71,11 @@ export const ZoomMeeetingRoom = () => {
           isResizable: false,
           viewSizes: {
             default: {
-              width: 100,
+              width: 200,
               height: 300
             },
             ribbon: {
-              width: 100,
+              width: 200,
               height: 300,
             }
           }
@@ -134,7 +134,7 @@ export const ZoomMeeetingRoom = () => {
     <div>
 
 <div style={{marginBottom:"30px"}}>
-<KeyboardBackspaceIcon onClick={handelBack}/>
+{/* <KeyboardBackspaceIcon onClick={handelBack}/> */}
 </div>
 
 <div id="meetingSDKElement" >

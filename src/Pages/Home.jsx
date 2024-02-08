@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 export const Home = () => {
     const navigate = useNavigate();
     const [rows, setRows] = useState([]);
+    const [loading,setloading] = useState(false);
     const handelZoomMeeting = (Data)=>{
     
         const data = Data
@@ -19,10 +20,12 @@ export const Home = () => {
       }
 
       const getAllClasses = async () => {
+        setloading(true)
         try {
           const response = await axios.get(`${Base_url}api/classes`); // Update the API endpoint accordingly
          
           const Data = response.data.data
+          setloading(false)
           if(Data){
            
               const formattedData = Data.map((item) => ({
@@ -54,12 +57,18 @@ export const Home = () => {
         
           }
         } catch (error) {
+          
           console.error('Error fetching classes:', error.message);
         }
       };
   return (
     <div style={{padding:"20px",display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center"}}>
-        <Button variant='contained' onClick={getAllClasses}>See  Classes</Button>
+        <Button disabled={loading} variant='contained' onClick={getAllClasses}>
+          {
+            loading ? "loading..." : "See  Classes"
+          }
+        
+          </Button>
         <div
   style={{
     display: "grid",
@@ -79,6 +88,8 @@ export const Home = () => {
       <div>{el.Meeting}</div>
     </div>
   ))}
+
+  
 </div>
     </div>
   )

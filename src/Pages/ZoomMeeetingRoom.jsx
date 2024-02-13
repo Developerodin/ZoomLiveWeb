@@ -75,7 +75,7 @@ export const ZoomMeeetingRoom = () => {
               height: 300
             },
             ribbon: {
-              width: 200,
+              width: 300,
               height: 300,
             }
           }

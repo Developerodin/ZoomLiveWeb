@@ -3,7 +3,7 @@ import ZoomMtgEmbedded from '@zoomus/websdk/embedded';
 import { Box, Button } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-
+import "./ZoomClass.css"
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import { Base_url } from '../Config/BaseUrl';
 const KJUR = require('jsrsasign')
@@ -13,6 +13,7 @@ export const ZoomMeeetingRoom = () => {
  
   const navigate = useNavigate();
   const location = useLocation();
+  const [joined, setJoined] = useState(false);
   const { ZoomMeetingNumber } = location.state; 
 
     const client = ZoomMtgEmbedded.createClient();
@@ -69,15 +70,14 @@ export const ZoomMeeetingRoom = () => {
        customize: {
         video: {
           isResizable: false,
-          viewSizes: {
-            default: {
-              width: 200,
-              height: 300
-            },
-            ribbon: {
-              width: 300,
-              height: 300,
-            }
+          popper: {
+            disableDraggable: true
+          }
+        },
+        chat: {
+          popper: {
+            disableDraggable: true,
+           
           }
         }
       }
@@ -97,15 +97,8 @@ export const ZoomMeeetingRoom = () => {
         
       }).then((res) => {
         console.log('joined succesfully',res);
-        if (meetingSDKElement.requestFullscreen) {
-          meetingSDKElement.requestFullscreen();
-        } else if (meetingSDKElement.mozRequestFullScreen) {
-          meetingSDKElement.mozRequestFullScreen();
-        } else if (meetingSDKElement.webkitRequestFullscreen) {
-          meetingSDKElement.webkitRequestFullscreen();
-        } else if (meetingSDKElement.msRequestFullscreen) {
-          meetingSDKElement.msRequestFullscreen();
-        }
+        setJoined(true);
+      
       }).catch((error) => {
         console.log("error ==>",error);
         // alert("Meeting not started yet !!")
@@ -124,6 +117,21 @@ export const ZoomMeeetingRoom = () => {
   const handelBack=()=>{
     window.history.back();
   }
+
+  const handleFullScreen = () => {
+    let meetingSDKElement = document.getElementById('meetingSDKElement');
+    if (meetingSDKElement) {
+      if (meetingSDKElement.requestFullscreen) {
+        meetingSDKElement.requestFullscreen();
+      } else if (meetingSDKElement.mozRequestFullScreen) {
+        meetingSDKElement.mozRequestFullScreen();
+      } else if (meetingSDKElement.webkitRequestFullscreen) {
+        meetingSDKElement.webkitRequestFullscreen();
+      } else if (meetingSDKElement.msRequestFullscreen) {
+        meetingSDKElement.msRequestFullscreen();
+      }
+    }
+  };
  
 
   useEffect(()=>{
@@ -141,6 +149,8 @@ export const ZoomMeeetingRoom = () => {
           {/* Zoom Meeting SDK Component View Rendered Here */}
         </div>
 
+
+
 {
   !ZoomMeetingNumber && 
   <Box style={{textAlign:"center",border:"1px solid red"}}>
@@ -149,9 +159,22 @@ export const ZoomMeeetingRoom = () => {
     <Button sx={{marginTop:"30px"}} variant='contained'  onClick={handelBack} >Go Back</Button>
   </Box>
 }
+
+{joined && (
+        <Button
+          sx={{ marginTop: '30px' }}
+          variant="contained"
+          onClick={handleFullScreen}
+        >
+          Go Fullscreen
+        </Button>
+      )}
     </div>
 
     
   )
 }
 
+
+// .zmwebsdk-makeStyles-root-204 width :100% height:250px
+// .zmwebsdk-makeStyles-root-54 height:80vh

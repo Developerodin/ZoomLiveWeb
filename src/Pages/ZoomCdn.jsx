@@ -171,7 +171,8 @@ useEffect(async()=>{
       meetingConfig.sdkKey = sdkKey;
       var joinUrl = "/meeting.html?" + serialize(meetingConfig);
       console.log(joinUrl);
-      window.open(joinUrl, "_blank");
+      // window.open(joinUrl);
+      window.location.replace(joinUrl);
     },
   });
 //    ZoomMtg.generateSDKSignature({

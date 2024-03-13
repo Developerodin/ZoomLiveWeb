@@ -16,7 +16,7 @@ export const Home = () => {
         number:data.meeting_number,
         pass:data.password
         }
-        navigate(`zoom-meeting/`, { state: { ZoomMeetingNumber } });
+        navigate(`cdn/`, { state: { ZoomMeetingNumber } });
       }
 
       const getAllClasses = async () => {

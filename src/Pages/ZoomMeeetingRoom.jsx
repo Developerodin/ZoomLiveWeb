@@ -26,7 +26,7 @@ export const ZoomMeeetingRoom = () => {
   var userEmail = "Akshay96102@gmail.com"
   var registrantToken = ''
   var zakToken = ''
-  var leaveUrl = 'https://localhost:3000'
+  var leaveUrl = 'http://localhost:3000'
   var userId="Akshay96102@gmail.com"
   var SECRET="C7Dm4JuZ2QXoN0bM2OYTw5JxZvjPK1y9"
   
@@ -141,9 +141,15 @@ export const ZoomMeeetingRoom = () => {
   return (
     <div>
 
-<div style={{marginBottom:"30px"}}>
-{/* <KeyboardBackspaceIcon onClick={handelBack}/> */}
-</div>
+{joined && (
+        <Button
+          sx={{ marginTop: '5px',marginBottom:"10px" }}
+          variant="contained"
+          onClick={handleFullScreen}
+        >
+          Go Fullscreen
+        </Button>
+      )}
 
 <div id="meetingSDKElement" >
           {/* Zoom Meeting SDK Component View Rendered Here */}
@@ -160,15 +166,7 @@ export const ZoomMeeetingRoom = () => {
   </Box>
 }
 
-{joined && (
-        <Button
-          sx={{ marginTop: '30px' }}
-          variant="contained"
-          onClick={handleFullScreen}
-        >
-          Go Fullscreen
-        </Button>
-      )}
+
     </div>
 
     

@@ -221,7 +221,7 @@ function websdkready() {
 
   // a tool use debug mobile device
   if (isMobileDevice()) {
-    vConsole = new VConsole();
+    // vConsole = new VConsole();
   }
   console.log(JSON.stringify(ZoomMtg.checkSystemRequirements()));
 

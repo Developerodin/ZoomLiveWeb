@@ -16,7 +16,13 @@ export const Home = () => {
         number:data.meeting_number,
         pass:data.password
         }
-        navigate(`cdn/`, { state: { ZoomMeetingNumber } });
+        const state = { ZoomMeetingNumber };
+        const zoomMeetingNumberString = JSON.stringify(state.ZoomMeetingNumber);
+        const queryParams = new URLSearchParams();
+        queryParams.append('ZoomMeetingNumber', zoomMeetingNumberString);
+        const queryString = queryParams.toString();
+      navigate(`/cdn?${queryString}`);
+        // navigate(`cdn/`, { state: { ZoomMeetingNumber } });
       }
 
       const getAllClasses = async () => {

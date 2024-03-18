@@ -2,11 +2,19 @@
 
 import { Base_url } from '../Config/BaseUrl';
 import { KJUR } from 'jsrsasign';
-import React,{useEffect,Fragment} from "react";
+import React,{useEffect,Fragment, useState} from "react";
 import { useLocation } from 'react-router-dom';
 const ZoomCdn = () => {
     const location = useLocation();
-    const { ZoomMeetingNumber } = location.state; 
+    // const [ZoomMeetingNumber,setZoomMeetingNumber] = useState({
+    //   number:0,
+    //   pass:0
+    // });
+    // const { ZoomMeetingNumber } = location.state; 
+    const params = new URLSearchParams(location.search);
+    const zoomMeetingNumberString = params.get('ZoomMeetingNumber');
+    const ZoomMeetingNumber = JSON.parse(zoomMeetingNumberString);
+    console.log("Zomm DEtails ==>",ZoomMeetingNumber.number,ZoomMeetingNumber.pass);
   var authEndpoint = Base_url
   var sdkKey = 'TsFvuPFLTeKf7_bNBWggPA'
   var meetingNumber =ZoomMeetingNumber.number
@@ -155,26 +163,29 @@ const serialize =(obj) => {
     return tmpSortResult;
   }
 useEffect(async()=>{
-   const {ZoomMtg} = await import ("@zoomus/websdk");
-   ZoomMtg.setZoomJSLib('https://source.zoom.us/3.1.6/lib', '/av');
-   ZoomMtg.preLoadWasm();
-   ZoomMtg.prepareJssdk();
 
-   var signature = ZoomMtg.generateSDKSignature({
-    meetingNumber: meetingConfig.mn,
-    sdkKey: sdkKey,
-    sdkSecret: SECRET,
-    role: meetingConfig.role,
-    success: function (res) {
-      console.log(res);
-      meetingConfig.signature = res.result;
-      meetingConfig.sdkKey = sdkKey;
-      var joinUrl = "/meeting.html?" + serialize(meetingConfig);
-      console.log(joinUrl);
-      // window.open(joinUrl);
-      window.location.replace(joinUrl);
-    },
-  });
+    const {ZoomMtg} = await import ("@zoomus/websdk");
+    ZoomMtg.setZoomJSLib('https://source.zoom.us/3.1.6/lib', '/av');
+    ZoomMtg.preLoadWasm();
+    ZoomMtg.prepareJssdk();
+ 
+    var signature = ZoomMtg.generateSDKSignature({
+     meetingNumber: meetingConfig.mn,
+     sdkKey: sdkKey,
+     sdkSecret: SECRET,
+     role: meetingConfig.role,
+     success: function (res) {
+       console.log(res);
+       meetingConfig.signature = res.result;
+       meetingConfig.sdkKey = sdkKey;
+       var joinUrl = "/meeting.html?" + serialize(meetingConfig);
+       console.log(joinUrl);
+       // window.open(joinUrl);
+       window.location.replace(joinUrl);
+     },
+   });
+  
+  
 //    ZoomMtg.generateSDKSignature({
 //     meetingNumber:meetingNumber,
 //     role:role,
@@ -213,6 +224,7 @@ useEffect(async()=>{
 //     }
 //    })
 },[])
+
   return  <Fragment>
         <link type="text/css" rel="stylessheet" href='https://source.zoom.us/3.1.6/css/bootstrap.css' />
         <link type="text/css" rel="stylessheet" href='https://source.zoom.us/3.1.6/css/react-select.css' />

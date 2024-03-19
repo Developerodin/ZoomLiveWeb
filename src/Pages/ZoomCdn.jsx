@@ -20,12 +20,12 @@ const ZoomCdn = () => {
   var meetingNumber =ZoomMeetingNumber.number
   var passWord = ZoomMeetingNumber.pass
   var role = 0
-  var userName = "Akshay Pareek"
-  var userEmail = "Akshay96102@gmail.com"
+  var userName = ZoomMeetingNumber.userName
+  var userEmail = ZoomMeetingNumber.email
   var registrantToken = ''
   var zakToken = ''
   var leaveUrl = '/'
-  var userId="Akshay96102@gmail.com"
+  var userId=ZoomMeetingNumber.email
   var SECRET="C7Dm4JuZ2QXoN0bM2OYTw5JxZvjPK1y9"
   
 //   function getSignature() {

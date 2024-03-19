@@ -14,7 +14,9 @@ export const Home = () => {
         console.log("Data===>",data)
         const ZoomMeetingNumber={
         number:data.meeting_number,
-        pass:data.password
+        pass:data.password,
+        userName:"Test",
+        email:"test@gmail.com",
         }
         const state = { ZoomMeetingNumber };
         const zoomMeetingNumberString = JSON.stringify(state.ZoomMeetingNumber);

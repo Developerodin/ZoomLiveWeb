@@ -75,7 +75,7 @@ export const Home = () => {
       };
 
       useEffect(()=>{
-        handleBackToApp()
+        // handleBackToApp()
       },[])
   return (
     <div style={{padding:"20px",display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center"}}>
